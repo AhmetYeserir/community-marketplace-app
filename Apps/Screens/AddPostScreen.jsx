@@ -1,13 +1,18 @@
-import { View, Text, TextInput, StyleSheet, Button, TouchableOpacity, Image, ToastAndroid } from 'react-native'
+import { View, Text, TextInput, StyleSheet, Button, TouchableOpacity, Image, ToastAndroid, Alert, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { app } from '../../firebaseConfig';
 import { Formik } from 'formik';
 import {Picker} from '@react-native-picker/picker'
 import * as ImagePicker from 'expo-image-picker';
-import { getFirestore, getDocs ,collection} from "firebase/firestore";
+import { getFirestore, getDocs ,collection, addDoc} from "firebase/firestore";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { useUser } from '@clerk/clerk-expo';
 export default function AddPostScreen() {
   const [image, setImage] = useState(null);
   const db = getFirestore(app);
+  const storage = getStorage();
+  const [loading,setLoading]=useState(false);
+  const {user}=useUser();
   const[categoryList,setCategoryList]=useState([]);
   useEffect(()=>{
     getCategoryList();
@@ -41,18 +46,38 @@ export default function AddPostScreen() {
       setImage(result.assets[0].uri);
     }
   };
+  const onSubmitMethod=async(value)=>{
+    
+    setLoading(true)
+    //Convert Uri to Blob File
+    const resp=await fetch(image);
+    const blob=await resp.blob();
+    const storageRef = ref(storage, 'communityPost/'+Date.now()+".jpg");
 
-
-  const onSubmitMethod=(value)=>{
-    value.image=image;
-    console.log(value)
+    uploadBytes(storageRef, blob).then((snapshot) => {
+      console.log('Uploaded a blob or file!');
+    }).then((resp)=>{
+      getDownloadURL(storageRef).then(async(downloadUrl)=>{
+        console.log(downloadUrl);
+        value.image=downloadUrl;
+        value.userName=user.fullName;
+        value.userEmail=user.primaryEmailAddress.emailAddress;
+        value.userImage=user.imageUrl;
+        const docRef=await addDoc(collection(db,"UserPost"),value)
+        if(docRef.id)
+        {
+          setLoading(false);
+          Alert.alert('Başarılı!!!','Gönderi Başarıyla Eklendi.')
+        }
+      })
+    });
   }
   return (
     <View className="p-10">
-      <Text className="text-[27px] font-bold">Yeni Post Ekle</Text>
-      <Text className="text-[16px] text-gray-500 mb-7">Yeni Post Oluştur ve Satışa Başla</Text>
+      <Text className="text-[27px] font-bold">Yeni Gönderi Ekle</Text>
+      <Text className="text-[16px] text-gray-500 mb-7">Yeni Gönderi Oluştur ve Satışa Başla</Text>
       <Formik
-        initialValues={{title:'',desc:'',category:'',address:'',price:'',image:''}}
+        initialValues={{title:'',desc:'',category:'',address:'',price:'',image:'',userName:'',userEmail:'',userImage:''}}
         onSubmit={value=>onSubmitMethod(value)}
         validate={(values)=>{
           const errors={}
@@ -119,8 +144,17 @@ export default function AddPostScreen() {
         </View>
 
         <TouchableOpacity onPress={handleSubmit}
+        style={{
+          backgroundColor:loading?'#ccc':'#007BFF',
+          
+        }}
+        disabled={loading}
          className="p-4 bg-blue-500 rounded-full mt-10">
+         {loading?
+          <ActivityIndicator color='#fff'/>
+          :
           <Text className="text-white text-center text-[16px]">Submit</Text>
+        }
         </TouchableOpacity>
           </View>
         )}
