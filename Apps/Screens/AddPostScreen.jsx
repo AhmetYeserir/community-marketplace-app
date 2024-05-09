@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet, Button, TouchableOpacity, Image, ToastAndroid, Alert, ActivityIndicator } from 'react-native'
+import { View, Text, TextInput, StyleSheet, Button, TouchableOpacity, Image, ToastAndroid, Alert, ActivityIndicator, KeyboardAvoidingView, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { app } from '../../firebaseConfig';
 import { Formik } from 'formik';
@@ -73,11 +73,12 @@ export default function AddPostScreen() {
     });
   }
   return (
-    <View className="p-10">
+    <KeyboardAvoidingView>
+    <ScrollView className="p-10 bg-white">
       <Text className="text-[27px] font-bold">Yeni Gönderi Ekle</Text>
       <Text className="text-[16px] text-gray-500 mb-7">Yeni Gönderi Oluştur ve Satışa Başla</Text>
       <Formik
-        initialValues={{title:'',desc:'',category:'',address:'',price:'',image:'',userName:'',userEmail:'',userImage:''}}
+        initialValues={{title:'',desc:'',category:'',address:'',price:'',image:'',userName:'',userEmail:'',userImage:'',createdAt:Date.now()}}
         onSubmit={value=>onSubmitMethod(value)}
         validate={(values)=>{
           const errors={}
@@ -159,7 +160,8 @@ export default function AddPostScreen() {
           </View>
         )}
       </Formik>
-    </View>
+    </ScrollView>
+    </KeyboardAvoidingView>
   )
 }
 const styles = StyleSheet.create({
