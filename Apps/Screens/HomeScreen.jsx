@@ -64,7 +64,9 @@ export default function HomeScreen() {
       {/* Category List */}
       <Categories categoryList={categoryList} />
       {/* Latest Item List */}
-      <LatestItemList latestItemList={latestItemList}/>
+      <LatestItemList latestItemList={latestItemList}
+      heading={'Latest Items'}
+      />
     </ScrollView>
   )
 }
