@@ -1,15 +1,42 @@
-import { View, Text, Image, TouchableOpacity, Linking } from 'react-native'
+import { View, Text, Image, ScrollView, Linking, Share } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useRoute } from '@react-navigation/native'
-import { ScrollView } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Ionicons } from '@expo/vector-icons';
 
-export default function ProductDetail() {
+export default function ProductDetail({navigation}) {
     const {params}=useRoute();
     const [product,setProduct]=useState([]);
 
     useEffect(()=>{
         params&&setProduct(params.product);
-    },[params])
+        shareButton();
+    },[params,navigation])
+
+    const shareButton=()=>{
+      navigation.setOptions({
+        headerRight: () => (
+          <Ionicons name="share-social-sharp" size={24}
+          onPress={()=>shareProduct()}
+          color="white"
+          style={{marginRight:15}} />
+
+        ),
+      });
+    }
+    /**
+     * Used to Share Product
+     */
+    const shareProduct=()=>{
+        const content={
+            message:product?.title+"\n"+product?.desc,
+        }
+      Share.share(content).then(resp=>{
+        console.log(resp);
+      },(error)=>{
+        console.log(error);
+      })
+    }
 
     const sendEmailMessage=()=>{
         const subject='Regarding'+product.title;
