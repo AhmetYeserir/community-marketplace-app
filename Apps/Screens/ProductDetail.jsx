@@ -1,13 +1,18 @@
-import { View, Text, Image, ScrollView, Linking, Share } from 'react-native'
+import { View, Text, Image, ScrollView, Linking, Share, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
+import { useUser } from '@clerk/clerk-expo';
+import { collection, deleteDoc, doc, getDocs, getFirestore, query, where } from 'firebase/firestore';
+import { app } from '../../firebaseConfig';
 
 export default function ProductDetail({navigation}) {
     const {params}=useRoute();
     const [product,setProduct]=useState([]);
-
+    const {user}=useUser();
+    const db=getFirestore(app);
+    const nav=useNavigation();
     useEffect(()=>{
         params&&setProduct(params.product);
         shareButton();
@@ -43,6 +48,31 @@ export default function ProductDetail({navigation}) {
         const body="Hi"+product.userName+"\n"+"I am interested in this product";
         Linking.openURL('mailto:'+product.userEmail+"?subject"+subject+"&body"+body);
     }
+    
+    const deleteUserPost=()=>{
+      Alert.alert('Do you want to Delete ?',"Are you want to Delete this Post ?",[
+        {
+          text:'Yes',
+          onPress:()=>deleteFromFirestore()
+        },
+        {
+          text: 'Cancel',
+          onPress:()=>console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+      ])
+    }
+    const deleteFromFirestore=async()=>{
+        console.log('Deleted');
+        const q=query(collection(db,'UserPost'),where('title','==',product.title));
+        const snapshot=await getDocs(q);
+        snapshot.forEach(doc=>{
+          deleteDoc(doc.ref).then(resp=>{
+              console.log("Deleted the  Doc...");
+              nav.goBack();
+          })
+        })
+    }
   return (
     <ScrollView className="bg-white">
       <Image  source={{uri:product.image}}
@@ -71,11 +101,20 @@ export default function ProductDetail({navigation}) {
         </View>
       </View>
 
+      {user?.primaryEmailAddress.emailAddress==product.userEmail?
+      <TouchableOpacity 
+      onPress={()=>deleteUserPost()}
+      className="z-40 bg-red-500 rounded-full p-4 m-2">
+        <Text className="text-center text-white">Delete Post</Text>
+      </TouchableOpacity>
+      :
       <TouchableOpacity 
       onPress={()=>sendEmailMessage()}
       className="z-40 bg-blue-500 rounded-full p-4 m-2">
         <Text className="text-center text-white">Send Message</Text>
       </TouchableOpacity>
+      }
+
     </ScrollView>
   )
 }
