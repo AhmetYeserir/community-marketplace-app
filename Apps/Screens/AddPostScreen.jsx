@@ -67,7 +67,7 @@ export default function AddPostScreen() {
         if(docRef.id)
         {
           setLoading(false);
-          Alert.alert('Başarılı!!!','Gönderi Başarıyla Eklendi.')
+          Alert.alert('Success!!!','Post Added Successfully.')
         }
       })
     });
@@ -75,8 +75,8 @@ export default function AddPostScreen() {
   return (
     <KeyboardAvoidingView>
     <ScrollView className="p-10 bg-white">
-      <Text className="text-[27px] font-bold">Yeni Gönderi Ekle</Text>
-      <Text className="text-[16px] text-gray-500 mb-7">Yeni Gönderi Oluştur ve Satışa Başla</Text>
+      <Text className="text-[27px] font-bold">Add New Post</Text>
+      <Text className="text-[16px] text-gray-500 mb-7">Create New Post and Start Selling</Text>
       <Formik
         initialValues={{title:'',desc:'',category:'',address:'',price:'',image:'',userName:'',userEmail:'',userImage:'',createdAt:Date.now()}}
         onSubmit={value=>onSubmitMethod(value)}
@@ -84,9 +84,9 @@ export default function AddPostScreen() {
           const errors={}
           if(!values.title)
           {
-            console.log("Başlık Mevcut Değil");
-            ToastAndroid.show('Başlık Gerekli',ToastAndroid.SHORT)
-            errors.name="Başlık Gerekli"
+            console.log("Title not Present");
+            ToastAndroid.show('Title Must be There',ToastAndroid.SHORT)
+            errors.name="Title Must be There"
           }
           return errors
         }}
@@ -105,27 +105,27 @@ export default function AddPostScreen() {
             </TouchableOpacity> 
             <TextInput
               style={styles.input}
-              placeholder='Başlık'
+              placeholder='Title'
               value={values?.title}
               onChangeText={handleChange('title')}
             />
             <TextInput
               style={styles.input}
-              placeholder='Açıklama'
+              placeholder='Description'
               value={values?.desc}
               numberOfLines={5}
               onChangeText={handleChange('desc')}
             />
             <TextInput
               style={styles.input}
-              placeholder='Fiyat'
+              placeholder='Price'
               value={values?.price}
               keyboardType='number-pad'
               onChangeText={handleChange('price')}
             />
             <TextInput
               style={styles.input}
-              placeholder='Adres'
+              placeholder='Address'
               value={values?.address}
               onChangeText={handleChange('address')}
             />
