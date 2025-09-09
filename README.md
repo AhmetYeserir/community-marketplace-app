@@ -1,6 +1,16 @@
 # Community Marketplace App
 
-*React Native (Expo) ve Firebase kullanılarak geliştirilmiş ikinci el satış mobil uygulaması.*
+<div align="center">
+  
+![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white)
+![Expo](https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white)
+
+Kullanıcıların ikinci el eşyalarını satabilecekleri, satın alabilecekleri ve takas edebilecekleri mobil pazar uygulaması.
+
+[Proje Özellikleri](#-proje-özellikleri) • [Kurulum](#-kurulum) • [Kullanım](#-kullanım) • [Teknolojiler](#-teknolojiler) • [Ekran Görüntüleri](#-ekran-görüntüleri)
+
+</div>
 
 ---
 
