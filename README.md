@@ -1,4 +1,4 @@
-# Community Marketplace App
+# Community Marketplace App - İkinci El Satış Mobil Uygulaması
 
 <div align="center">
   
@@ -66,8 +66,6 @@ community-marketplace-app/
 
 ```bash
 npm install
-# veya
-yarn
 ```
 
 ### 3) Firebase yapılandırması
@@ -94,7 +92,7 @@ npx expo start
 
 ---
 
-## 🗄️ Veri Modeli (Öneri)
+## 🗄️ Veri Modeli
 
 **Collection:** `listings`
 
@@ -122,34 +120,19 @@ npx expo start
 
 ---
 
-## 🛣️ Yol Haritası
+👨‍💻 Geliştirici
 
-* [ ] İlan filtreleme & arama
-* [ ] Favoriler / kayıtlı ürünler
-* [ ] Alıcı-satıcı arasında uygulama içi mesajlaşma
-* [ ] Push bildirimleri
-* [ ] Harita/konum seçici
-* [ ] Profil ve avatar yükleme
-* [ ] EAS Build (CI/CD) entegrasyonu
-* [ ] Testler (Unit & E2E)
-* [ ] Koyu tema desteği
+Ahmet Yeşeriroğlu
 
----
+Portfolyo
 
-## 🐞 Sorun Giderme
+LinkedIn
 
-* Metro bundler önbellek sorunları → `expo start -c`
-* Android emülatörde görsel sorunları → Storage kurallarını ve dosya URI’larını kontrol edin
-* iOS build hataları → `expo prebuild` sonrası Xcode’da açıp imzalama ayarlarını yapın
-
----
-
-## 📄 Not
-
-Bu proje açık kaynak olarak paylaşılmıştır. Kendi projelerinizde kullanabilir, geliştirebilir ve uyarlayabilirsiniz.
+Email
 
 ---
 
 ## 🙏 Teşekkür
 
 Bu projeyi inceleyen herkese teşekkürler!
+
