@@ -122,7 +122,6 @@ npx expo start
 
 ## 👨‍💻 Geliştirici
 
-<div align="center">
 
 ### **Ahmet Yeşeriroğlu**
 
@@ -130,7 +129,6 @@ npx expo start
 [![Email](https://img.shields.io/badge/📧_Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ahmetyeserirogluu@gmail.com)
 [![GitHub](https://img.shields.io/badge/💻_GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AhmetYeserir)
 
-</div>
 
 ---
 
