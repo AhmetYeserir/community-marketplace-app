@@ -6,7 +6,7 @@
 ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white)
 ![Expo](https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white)
 
-Kullanıcıların ikinci el eşyalarını satabilecekleri, satın alabilecekleri ve takas edebilecekleri mobil pazar uygulaması.
+Community Marketplace App, kullanıcıların ikinci el ürünleri kolayca listeleyebildiği, satabildiği, satın alabildiği ve takas edebildiği kullanıcı dostu bir mobil pazar uygulamasıdır. Uygulama, yerel topluluklar içinde sürdürülebilir tüketimi teşvik etmek amacıyla geliştirilmiştir.
 
 [Proje Özellikleri](#-proje-özellikleri) • [Kurulum](#-kurulum) • [Kullanım](#-kullanım) • [Teknolojiler](#-teknolojiler) • [Ekran Görüntüleri](#-ekran-görüntüleri)
 
@@ -120,7 +120,7 @@ npx expo start
 
 ---
 
-👨‍💻 Geliştirici
+## 👨‍💻 Geliştirici
 
 Ahmet Yeşeriroğlu
 
